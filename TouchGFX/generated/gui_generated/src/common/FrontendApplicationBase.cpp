@@ -46,17 +46,6 @@ void FrontendApplicationBase::gotoMenuScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<MenuScreenView, MenuScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoMenuScreenScreenSlideTransitionEast()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoMenuScreenScreenSlideTransitionEastImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoMenuScreenScreenSlideTransitionEastImpl()
-{
-    touchgfx::makeTransition<MenuScreenView, MenuScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 // GameScreen
 
 void FrontendApplicationBase::gotoGameScreenScreenSlideTransitionEast()

@@ -1,3 +1,3 @@
-C:/HeNhung/MyApplication/Core/Src/stm32f4xx_hal_timebase_tim.c:42:19:HAL_InitTick	5
-C:/HeNhung/MyApplication/Core/Src/stm32f4xx_hal_timebase_tim.c:121:6:HAL_SuspendTick	1
-C:/HeNhung/MyApplication/Core/Src/stm32f4xx_hal_timebase_tim.c:133:6:HAL_ResumeTick	1
+D:/Galaga/GALAGA-GAME/Core/Src/stm32f4xx_hal_timebase_tim.c:42:19:HAL_InitTick	5
+D:/Galaga/GALAGA-GAME/Core/Src/stm32f4xx_hal_timebase_tim.c:121:6:HAL_SuspendTick	1
+D:/Galaga/GALAGA-GAME/Core/Src/stm32f4xx_hal_timebase_tim.c:133:6:HAL_ResumeTick	1

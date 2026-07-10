@@ -6,8 +6,7 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-GameScreenViewBase::GameScreenViewBase() :
-    buttonCallback(this, &GameScreenViewBase::buttonCallbackHandler)
+GameScreenViewBase::GameScreenViewBase()
 {
     __background.setPosition(0, 0, 240, 320);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -22,15 +21,7 @@ GameScreenViewBase::GameScreenViewBase() :
     menu_button.setLabelText(touchgfx::TypedText(T___SINGLEUSE_24XT));
     menu_button.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     menu_button.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    menu_button.setAction(buttonCallback);
     add(menu_button);
-
-    continue_round2.setXY(35, 189);
-    continue_round2.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_BUTTONS_SQUARE_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_BUTTONS_SQUARE_SMALL_PRESSED_ID));
-    continue_round2.setLabelText(touchgfx::TypedText(T___SINGLEUSE_C52Y));
-    continue_round2.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    continue_round2.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    add(continue_round2);
 
     heart_03.setXY(204, 1);
     heart_03.setBitmap(touchgfx::Bitmap(BITMAP_HEART_ID));
@@ -60,14 +51,24 @@ GameScreenViewBase::GameScreenViewBase() :
     score_holder.setTypedText(touchgfx::TypedText(T___SINGLEUSE_CFD2));
     add(score_holder);
 
+    highscore_holder.setPosition(0, 149, 240, 34);
+    highscore_holder.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    highscore_holder.setLinespacing(0);
+    highscore_holderBuffer[0] = 0;
+    highscore_holder.setWildcard(highscore_holderBuffer);
+    highscore_holder.setTypedText(touchgfx::TypedText(T___SINGLEUSE_FJVT));
+    add(highscore_holder);
+
     round_2.setPosition(0, 115, 240, 34);
     round_2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     round_2.setLinespacing(0);
+    Unicode::snprintf(round_2Buffer, ROUND_2_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_WANV).getText());
+    round_2.setWildcard(round_2Buffer);
     round_2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_WXYY));
     add(round_2);
 
     animatedImage1.setXY(208, 1);
-    animatedImage1.setBitmaps(BITMAP_ENEMY_RED_01_ID, BITMAP_ENEMY_RED_02_ID);
+    animatedImage1.setBitmaps(BITMAP_MRTIEN_ID, BITMAP_MRTIEN2_ID);
     animatedImage1.setUpdateTicksInterval(1);
     animatedImage1.setAlpha(0);
     add(animatedImage1);
@@ -81,15 +82,4 @@ GameScreenViewBase::~GameScreenViewBase()
 void GameScreenViewBase::setupScreen()
 {
 
-}
-
-void GameScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
-{
-    if (&src == &menu_button)
-    {
-        //Interaction1
-        //When menu_button clicked change screen to MenuScreen
-        //Go to MenuScreen with screen transition towards East
-        application().gotoMenuScreenScreenSlideTransitionEast();
-    }
 }

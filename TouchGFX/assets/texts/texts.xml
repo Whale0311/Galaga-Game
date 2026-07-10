@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.25.0">
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
   <Languages>
     <Language Id="GB" />
   </Languages>
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_WXYY" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">ROUND 2</Translation>
+      <Text Id="__SingleUse_G19X" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
       </Text>
-      <Text Id="__SingleUse_C52Y" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">CONTINUE</Translation>
+      <Text Id="__SingleUse_WANV" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">2</Translation>
+      </Text>
+      <Text Id="__SingleUse_A5PI" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">High Score: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_FJVT" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">HIGH SCORE: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_WXYY" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">ROUND &lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_D88Q" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">0</Translation>
@@ -22,7 +31,7 @@
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_24XT" Alignment="Center" TypographyId="Default">
-        <Translation Language="GB">GO BACK</Translation>
+        <Translation Language="GB">RESTART</Translation>
       </Text>
       <Text Id="__SingleUse_I238" Alignment="Center" TypographyId="Default">
         <Translation Language="GB">START</Translation>
@@ -30,7 +39,7 @@
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
+    <Typography Id="Default" Font="verdana.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789" WildcardCharacterRanges="0-9" />
     <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
   </Typographies>

@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/OSWrappers.o: \
- C:/HeNhung/MyApplication/TouchGFX/target/generated/OSWrappers.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/target/generated/OSWrappers.cpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
@@ -16,6 +16,7 @@ Application/User/TouchGFX/target/generated/OSWrappers.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp \
@@ -47,6 +48,7 @@ Application/User/TouchGFX/target/generated/OSWrappers.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp:

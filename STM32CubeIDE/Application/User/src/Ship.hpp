@@ -14,8 +14,8 @@ public:
 	Ship();
 	virtual ~Ship();
 	bool update(uint8_t dt);
-	int MOVE_RATE = 400;
-	int FIRE_RATE = 10000;
+	int MOVE_RATE = 0;
+	int FIRE_RATE = 35;
 	int VELOCITY = 3;
 	void updateVelocityX(short X);
 	void updateVelocityY(short Y);

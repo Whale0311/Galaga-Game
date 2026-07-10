@@ -1,5 +1,5 @@
 Application/User/generated/MenuScreenViewBase.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/menuscreen_screen/MenuScreenViewBase.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/menuscreen_screen/MenuScreenViewBase.cpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
@@ -39,6 +39,7 @@ Application/User/generated/MenuScreenViewBase.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  ../../TouchGFX/gui/include/gui/model/Model.hpp \
@@ -46,15 +47,17 @@ Application/User/generated/MenuScreenViewBase.o: \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
- ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
- ../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp
+ ../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp \
+ ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp
 ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
@@ -94,6 +97,7 @@ Application/User/generated/MenuScreenViewBase.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 ../../TouchGFX/gui/include/gui/model/Model.hpp:
@@ -101,12 +105,14 @@ Application/User/generated/MenuScreenViewBase.o: \
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:
 ../../TouchGFX/gui/include/gui/model/ModelListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
-../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
 ../../TouchGFX/generated/texts/include/texts/TextKeysAndLanguages.hpp:
+../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:

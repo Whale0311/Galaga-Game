@@ -1,5 +1,5 @@
 Application/User/gui/GameScreenPresenter.o: \
- C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenPresenter.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenPresenter.cpp \
  ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/gamescreen_screen/GameScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
@@ -40,6 +40,7 @@ Application/User/gui/GameScreenPresenter.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  ../../TouchGFX/gui/include/gui/model/Model.hpp \
@@ -56,14 +57,14 @@ Application/User/gui/GameScreenPresenter.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\app.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Game.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Ship.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/app.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Game.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Ship.hpp \
  ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Entity.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Bullet.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Enemy.hpp
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Entity.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Bullet.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Enemy.hpp
 ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/gamescreen_screen/GameScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp:
@@ -104,6 +105,7 @@ Application/User/gui/GameScreenPresenter.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 ../../TouchGFX/gui/include/gui/model/Model.hpp:
@@ -120,11 +122,11 @@ Application/User/gui/GameScreenPresenter.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\app.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Game.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Ship.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/app.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Game.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Ship.hpp:
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Entity.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Bullet.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Enemy.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Entity.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Bullet.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Enemy.hpp:

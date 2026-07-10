@@ -1,4 +1,4 @@
 Application/User/TouchGFX/App/app_touchgfx.o: \
- C:/HeNhung/MyApplication/TouchGFX/App/app_touchgfx.c \
- C:/HeNhung/MyApplication/TouchGFX/App/app_touchgfx.h
-C:/HeNhung/MyApplication/TouchGFX/App/app_touchgfx.h:
+ D:/Galaga/GALAGA-GAME/TouchGFX/App/app_touchgfx.c \
+ D:/Galaga/GALAGA-GAME/TouchGFX/App/app_touchgfx.h
+D:/Galaga/GALAGA-GAME/TouchGFX/App/app_touchgfx.h:

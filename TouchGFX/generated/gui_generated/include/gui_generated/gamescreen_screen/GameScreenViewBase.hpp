@@ -11,7 +11,6 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
 
 class GameScreenViewBase : public touchgfx::View<GameScreenPresenter>
@@ -32,13 +31,13 @@ protected:
     touchgfx::Box __background;
     touchgfx::Image image2;
     touchgfx::ButtonWithLabel menu_button;
-    touchgfx::ButtonWithLabel continue_round2;
     touchgfx::Image heart_03;
     touchgfx::Image heart_02;
     touchgfx::Image heart_01;
     touchgfx::TextAreaWithOneWildcard score_board;
     touchgfx::TextAreaWithOneWildcard score_holder;
-    touchgfx::TextArea round_2;
+    touchgfx::TextAreaWithOneWildcard highscore_holder;
+    touchgfx::TextAreaWithOneWildcard round_2;
     touchgfx::AnimatedImage animatedImage1;
 
     /*
@@ -48,18 +47,12 @@ protected:
     touchgfx::Unicode::UnicodeChar score_boardBuffer[SCORE_BOARD_SIZE];
     static const uint16_t SCORE_HOLDER_SIZE = 10;
     touchgfx::Unicode::UnicodeChar score_holderBuffer[SCORE_HOLDER_SIZE];
+    static const uint16_t HIGHSCORE_HOLDER_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar highscore_holderBuffer[HIGHSCORE_HOLDER_SIZE];
+    static const uint16_t ROUND_2_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar round_2Buffer[ROUND_2_SIZE];
 
 private:
-
-    /*
-     * Callback Declarations
-     */
-    touchgfx::Callback<GameScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
-
-    /*
-     * Callback Handler Declarations
-     */
-    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

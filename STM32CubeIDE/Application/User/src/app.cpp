@@ -8,54 +8,97 @@
 #include "timers.h"
 #include "stack_macros.h"
 #include "main.h"
-#include "cmsis_os2.h"
+#include <cstdlib> // Thư viện chứa hàm abs()
 
-// Khởi tạo đối tượng trò chơi và các mảng đạn và kẻ địch
 Game gameInstance;
 Bullet shipBullet[MAX_BULLET];
 Bullet enemyBullet[MAX_BULLET];
+int enemyBulletType[MAX_BULLET];
 Enemy enemy[MAX_ENEMY];
 
-// Các hằng số và biến dùng để quản lý tốc độ xuất hiện của kẻ địch
 #define MAX_SPAWN_RATE 10000
 int spawnRate = MAX_SPAWN_RATE;
 int spawnSeed = 0;
+bool isWaveInitialized = false;
+int enemyMoveDirection = 1;
 
+// CHUẨN 60FPS: Giảm xuống 90 frames (~1.5 giây đầu game quái mới bắt đầu nhả đạn)
+int globalEnemyFireCooldown = 90;
+extern RNG_HandleTypeDef hrng;
 int currentRound = 1;
 bool isRoundTransition = false;
-int enemyBulletSpeed = 5;
+
+// ĐIỀU CHỈNH TỐC ĐỘ ĐẠN: Giảm từ 5 xuống 4 để vừa tầm mắt né tránh
+int enemyBulletSpeed = 4;
 const int ENEMY_BULLET_SPEED_MAX = 12;
 
 volatile bool isGameTaskTerminated = false;
-
-// Biến để lưu trữ vị trí của tàu và các cờ để điều khiển trạng thái trò chơi
 uint16_t sx, sy;
 bool shouldEndGame;
 bool shouldStopTask;
+uint32_t highScore = 0;
 
-// Các hàm cập nhật vị trí của kẻ địch, đạn tàu và đạn kẻ địch
+// Các biến toàn cục quản lý vật lý trái tim rơi
+int heartDropX = -50;
+int heartDropY = -50;
+bool isHeartDropping = false;
+
+#define FLASH_USER_SECTOR       FLASH_SECTOR_23
+#define FLASH_USER_START_ADDR   0x081E0000
+
+void SaveHighScoreToFlash(uint32_t score) {
+    HAL_FLASH_Unlock();
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR |
+                           FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+
+    FLASH_EraseInitTypeDef EraseInitStruct;
+    uint32_t SectorError = 0;
+    EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
+    EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+    EraseInitStruct.Sector = FLASH_USER_SECTOR;
+    EraseInitStruct.NbSectors = 1;
+
+    __disable_irq();
+    if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) == HAL_OK) {
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, FLASH_USER_START_ADDR, score);
+    }
+    __enable_irq();
+    HAL_FLASH_Lock();
+}
+
+void LoadHighScoreFromFlash() {
+    highScore = *(__IO uint32_t*)FLASH_USER_START_ADDR;
+    if (highScore == 0xFFFFFFFF || highScore > 99999) {
+        highScore = 0;
+    }
+}
+
 void updateEnemy(uint8_t dt);
 void updateShipBullet(uint8_t dt);
 void updateEnemyBullet(uint8_t dt);
 void resetGameObjectsForNextRound();
 
-// Biến lưu thời gian đã trôi qua
 uint8_t dt = 0;
-
 extern osMessageQueueId_t Queue5Handle;
 
-// Nhiệm vụ của task game
 void gameTask(void *argument) {
     shouldEndGame = false;
     shouldStopTask = false;
-	int loopCount = 0;
+    isWaveInitialized = false;
+    enemyMoveDirection = 1;
+    globalEnemyFireCooldown = 90; // CHUẨN 60FPS
+    isHeartDropping = false;
 
-	// Khởi tạo vị trí và trạng thái ban đầu cho đạn và kẻ địch
+    if (currentRound == 1) {
+        gameInstance.ship.lives = 3;
+        gameInstance.score = 0;
+    }
+
 	for (int i = 0; i < MAX_BULLET; i++) {
 		shipBullet[i].updateCoordinate(-50, -50);
 		enemyBullet[i].updateCoordinate(-50, -50);
-		shipBullet[i].updateVelocity(0, -5);
-		enemyBullet[i].updateVelocity(0, 5);
+		shipBullet[i].updateVelocity(0, -4); // Tốc độ đạn tàu bay lên vừa phải
+		enemyBullet[i].updateVelocity(0, 4);  // Tốc độ đạn quái rơi xuống vừa phải
 		shipBullet[i].updateDisplayStatus(IS_HIDDEN);
 		enemyBullet[i].updateDisplayStatus(IS_HIDDEN);
 	}
@@ -64,206 +107,206 @@ void gameTask(void *argument) {
 		enemy[i].updateCoordinate(-50, -50);
 		enemy[i].updateDisplayStatus(IS_HIDDEN);
 	}
+	LoadHighScoreFromFlash();
 
-//	uint32_t previousTick = 0, currentTick = 0;
+	uint32_t tick = osKernelGetTickCount();
 	for (;;) {
-		loopCount++;
-		// Kiểm tra nút PG13 mỗi vòng lặp để tăng tốc độ đạn quái khi nhấn
-		if (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_13) == GPIO_PIN_SET) {
-			if (enemyBulletSpeed < ENEMY_BULLET_SPEED_MAX) {
-				enemyBulletSpeed++;
-				osDelay(200); // Chống tăng liên tục khi giữ nút
-			}
-		}
-		// Nếu cờ kết thúc trò chơi và dừng task được đặt, thoát khỏi vòng lặp
+		tick += 16;
+
 		if (shouldEndGame == true && shouldStopTask == true) {
 			break;
-		}
-
-		// Nếu cờ kết thúc trò chơi đã được đặt, tiếp tục vòng lặp
-		else if (shouldEndGame)
+		} else if (shouldEndGame) {
+			osDelayUntil(tick);
 			continue;
-
-		// Xác định thời gian đã trôi qua từ lần cập nhật trước đó
-		if (loopCount >= 2) {
-			dt = 1;
-			loopCount = 0;
-		} else {
-			dt = 0;
 		}
-		/*  UPDATE POSITIONS */
 
-		// Cập nhật vị trí tàu và các đối tượng trong trò chơi
+		dt = 1; // Khóa cứng nhịp trễ vật lý ở 60 FPS
+
 		sx = gameInstance.ship.coordinateX;
 		sy = gameInstance.ship.coordinateY;
 
-		// update enemy
 		updateEnemy(dt);
-
-		// update ship position
 		gameInstance.ship.update(dt);
-
-		// update ship bullet position
 		updateShipBullet(dt);
-
-		// update enemy bullet position
 		updateEnemyBullet(dt);
 
-		/*  CHECK COLLISIONS */
-
-		// check enemy and ship collision
-		// Kiểm tra va chạm giữa các đối tượng
-		// Kiểm tra va chạm giữa tàu và kẻ địch
+		/* KIỂM TRA VA CHẠM TÀU VÀ QUÁI */
 		for (int i = 0; i < MAX_ENEMY; i++) {
-			if (enemy[i].displayStatus != IS_SHOWN)
-				continue;
-			if (Entity::isCollide(enemy[i], gameInstance.ship)) {
-				gameInstance.ship.updateShipHp(1);
-				enemy[i].updateDisplayStatus(SHOULD_HIDE);
-				gameInstance.ship.updateCoordinate(104, 260);
-				break;
-			}
+            if (enemy[i].displayStatus != IS_SHOWN) continue;
+            if (Entity::isCollide(enemy[i], gameInstance.ship)) {
+                gameInstance.ship.updateShipHp(1);
+                enemy[i].updateDisplayStatus(SHOULD_HIDE);
+                gameInstance.ship.updateCoordinate(104, 260);
+
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+                osDelay(150);
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+                break;
+            }
 		}
 
-		// Kiểm tra va chạm giữa kẻ địch và đạn của tàu
+		/* KIỂM TRA VA CHẠM ĐẠN TÀU VÀ QUÁI */
 		for (int i = 0; i < MAX_ENEMY; i++) {
-			if (enemy[i].displayStatus != IS_SHOWN)
-				continue;
+			if (enemy[i].displayStatus != IS_SHOWN) continue;
 			for (int j = 0; j < MAX_BULLET; j++) {
-				if (shipBullet[j].displayStatus != IS_SHOWN)
-					continue;
+				if (shipBullet[j].displayStatus != IS_SHOWN) continue;
 				if (Entity::isCollide(enemy[i], shipBullet[j])) {
 					enemy[i].updateDisplayStatus(SHOULD_HIDE);
 					shipBullet[j].updateDisplayStatus(SHOULD_HIDE);
 					gameInstance.updateScore(5);
-					HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
-					osDelay(50);
-					HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+
+					// Tính năng rơi vật phẩm: 15% rơi ra trái tim
+					if (!isHeartDropping && (HAL_GetTick() % 100 < 5)) {
+					    heartDropX = enemy[i].coordinateX;
+					    heartDropY = enemy[i].coordinateY;
+					    isHeartDropping = true;
+					}
 					break;
 				}
 			}
 		}
 
-		
+		/* CƠ CHẾ VẬT LÝ TRÁI TIM RƠI XUỐNG VÀ ĂN MẠNG */
+				if (isHeartDropping) {
+				    heartDropY += 2;
 
-		// Kiểm tra va chạm giữa tàu và đạn của kẻ địch
+				    if (heartDropY > 320) {
+				        isHeartDropping = false;
+				        heartDropX = -100;
+				        heartDropY = -100;
+				    } else {
+				        // THÊM ELSE VÀO ĐÂY: Chỉ kiểm tra va chạm khi trái tim vẫn đang rơi trên màn hình
+				        int sX = gameInstance.ship.coordinateX;
+				        int sY = gameInstance.ship.coordinateY;
+
+				        if (heartDropX < sX + 32 && heartDropX + 32 > sX &&
+				            heartDropY < sY + 32 && heartDropY + 32 > sY) {
+
+				            if (gameInstance.ship.lives < 3) {
+				                gameInstance.ship.lives++;
+
+				                uint8_t msg = 3;
+				                osMessageQueuePut(Queue5Handle, &msg, 0, 0);
+				            }
+
+				            isHeartDropping = false;
+				            heartDropX = -100;
+				            heartDropY = -100;
+				        }
+				    }
+				}
+
+		/* KIỂM TRA VA CHẠM ĐẠN QUÁI VÀ TÀU */
 		for (int i = 0; i < MAX_BULLET; i++) {
-			if (enemyBullet[i].displayStatus != IS_SHOWN)
-				continue;
+			if (enemyBullet[i].displayStatus != IS_SHOWN) continue;
 			if (Entity::isCollide(enemyBullet[i], gameInstance.ship)) {
-				gameInstance.ship.updateShipHp(1);
-				enemyBullet[i].updateDisplayStatus(SHOULD_HIDE);
-				gameInstance.ship.updateCoordinate(104, 260);
-				break;
+                gameInstance.ship.updateShipHp(1);
+                enemyBullet[i].updateDisplayStatus(SHOULD_HIDE);
+                gameInstance.ship.updateCoordinate(104, 260);
+
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+                osDelay(150);
+                HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+                break;
 			}
 		}
 
-		// Nếu tàu hết máu, đặt cờ kết thúc trò chơi
+		// Xử lý kết thúc game
 		uint8_t msg;
 		if (gameInstance.ship.lives <= 0) {
 			shouldEndGame = true;
+			if (gameInstance.score > highScore) {
+				highScore = gameInstance.score;
+				SaveHighScoreToFlash(highScore);
+			}
 			while (!shouldStopTask) {
 				msg = 1;
 				osMessageQueuePut(Queue5Handle, &msg, 0, 0);
-				osDelay(50); // Small delay to yield CPU
+				osDelay(50);
 			}
 			break;
 		} 
+		else if (isWaveInitialized) {
+            int aliveEnemies = 0;
+            for (int i = 0; i < MAX_ENEMY; i++) {
+                if (enemy[i].displayStatus == IS_SHOWN || enemy[i].displayStatus == SHOULD_SHOW) {
+                    aliveEnemies++;
+                }
+            }
 
-		else if (currentRound == 1 && gameInstance.score >= 30) {
-			shouldEndGame = true;
-			isRoundTransition = true;
-			// Gửi message đặc biệt để UI biết là chuyển round
-			uint8_t msg = 2;
-			osMessageQueuePut(Queue5Handle, &msg, 0, 0);
-					// Chờ UI gửi tín hiệu continue (ví dụ đặt shouldEndGame = false từ ngoài)
-			while (shouldEndGame && isRoundTransition) {
-				osDelay(10);  // Đợi đến khi người dùng nhấn “continue”
-			}
+            if (aliveEnemies == 0) {
+                shouldEndGame = true;
+                isRoundTransition = true;
 
-			// Reset lại các đối tượng và tiếp tục vòng mới
-			currentRound = 2;
-			shouldEndGame = false;  // Cho phép game tiếp tục
-			// while (!shouldStopTask) {
-			// 	osDelay(10);
-			// }
-			// break;
-		}
-		else {
-			msg = '0';
-			osMessageQueuePut(Queue5Handle, &msg, 0, 0);
-		}
+                msg = 2;
+                osMessageQueuePut(Queue5Handle, &msg, 0, 0);
+
+                while (!shouldStopTask) {
+                    osDelay(10);
+                }
+                break;
+            }
+        }
+		// XÓA BỎ HOÀN TOÀN KHỐI LỆNH ELSE SPAM KÝ TỰ '0' ĐỂ GIẢI PHÓNG ĐƯỜNG TRUYỀN QUEUE
+		osDelayUntil(tick);
 	}
 	isGameTaskTerminated = true;
 	return;
-
 }
 
-// Cập nhật vị trí của kẻ địch
 void updateEnemy(uint8_t dt) {
-	spawnRate -= dt;
+	int effectiveRound = (currentRound > 5) ? 5 : currentRound;
+	static int dropTimer = 0;
+
+	if (!isWaveInitialized) {
+		int numEnemies = effectiveRound * 6;
+		if (numEnemies > MAX_ENEMY) numEnemies = MAX_ENEMY;
+
+		int cols = 6;
+		int startSpeed = (currentRound >= 3) ? 2 : 1;
+		enemyMoveDirection = 1;
+
+		for (int i = 0; i < numEnemies && i < MAX_ENEMY; i++) {
+			int row = i / cols;
+			int col = i % cols;
+			uint16_t startX = 10 + col * 35;
+			uint16_t startY = 20 + row * 30;
+
+			enemy[i].updateCoordinate(startX, startY);
+			enemy[i].updateVelocity(enemyMoveDirection * startSpeed, 0);
+			enemy[i].updateDisplayStatus(SHOULD_SHOW);
+		}
+		isWaveInitialized = true;
+		dropTimer = 0;
+	}
+
 	for (int i = 0; i < MAX_ENEMY; i++) {
-		// Nếu kẻ địch đang hiển thị, tiếp tục cập nhật vị trí
-		if (enemy[i].displayStatus != IS_HIDDEN) {
+		if (enemy[i].displayStatus == IS_SHOWN || enemy[i].displayStatus == SHOULD_SHOW) {
 			enemy[i].update(dt);
-			continue;
+			if (enemy[i].coordinateX >= 240) {
+				enemy[i].updateCoordinate(-32, enemy[i].coordinateY);
+			}
 		}
+	}
 
-		if (spawnRate > 0)
-			continue;
+	dropTimer++;
+	int dropThreshold = 200 - (effectiveRound * 20);
+	if (dropThreshold < 80) dropThreshold = 80;
 
-		uint16_t ex = 0;
-		uint16_t ey = 0;
-		uint16_t vx;
-		uint16_t vy = 0;
-
-		// --- Use hardware RNG for randomness ---
-		uint32_t randValue = 0;
-		if (HAL_RNG_GenerateRandomNumber(&hrng, &randValue) != HAL_OK) {
-			randValue = 0; // fallback if RNG fails
+	if (dropTimer >= dropThreshold) {
+		dropTimer = 0;
+		for (int i = 0; i < MAX_ENEMY; i++) {
+			if (enemy[i].displayStatus == IS_SHOWN || enemy[i].displayStatus == SHOULD_SHOW) {
+				enemy[i].updateCoordinate(enemy[i].coordinateX, enemy[i].coordinateY + 15);
+				if (enemy[i].coordinateY > 280) {
+					 enemy[i].updateCoordinate(enemy[i].coordinateX, -32);
+				}
+			}
 		}
-		uint8_t randSpawn = randValue % 4; // 0..3
-		uint8_t randSide = (randValue >> 8) & 0x01; // 0 or 1
-
-		if (randSide) {
-			ex = -32;
-			vx = 1;
-		} else {
-			ex = 240;
-			vx = -1;
-		}
-
-		switch (randSpawn) {
-		case 0:
-			ey = 42;
-			break;
-		case 1:
-			ey = 80;
-			break;
-		case 2:
-			ey = 120;
-			break;
-		case 3:
-			ey = 160;
-			break;
-		default:
-			ey = 42;
-			break;
-		}
-
-		// Cập nhật thông tin của kẻ địch và hiển thị lên màn hình
-		enemy[i].updateCoordinate(ex, ey);
-		enemy[i].updateVelocity(vx, vy);
-		enemy[i].updateDisplayStatus(SHOULD_SHOW);
-
-		// Đặt lại spawnRate để đợi cho lần xuất hiện kế tiếp
-		spawnRate = MAX_SPAWN_RATE;
 	}
 }
 
-// Cập nhật vị trí của đạn từ tàu
 void updateShipBullet(uint8_t dt) {
-	// kiem tra tau con het dan chua
 	bool shouldFire = gameInstance.ship.updateBullet(dt);
 	for (int i = 0; i < MAX_BULLET; i++) {
 		if (shipBullet[i].displayStatus != IS_HIDDEN) {
@@ -279,67 +322,76 @@ void updateShipBullet(uint8_t dt) {
 	}
 }
 
-// Cập nhật vị trí của đạn từ kẻ địch
-
 void updateEnemyBullet(uint8_t dt) {
-	// Đặt tốc độ đạn enemy theo round
 	int bulletSpeed = enemyBulletSpeed;
-	if (currentRound == 2) bulletSpeed += 1;
-	if (bulletSpeed > ENEMY_BULLET_SPEED_MAX) bulletSpeed = ENEMY_BULLET_SPEED_MAX;
+	globalEnemyFireCooldown -= dt;
 
-	for (int j = 0; j < MAX_ENEMY; j++) {
-		if (enemy[j].displayStatus != IS_SHOWN)
-			continue;
+	if (globalEnemyFireCooldown <= 0) {
+		int activeEnemies[MAX_ENEMY];
+		int activeCount = 0;
 
-		// kiem tra ke dich con dan khong
-		if (enemy[j].updateBullet(dt) == false)
-			continue;
+		for (int j = 0; j < MAX_ENEMY; j++) {
+			if (enemy[j].displayStatus == IS_SHOWN) {
+				activeEnemies[activeCount] = j;
+				activeCount++;
+			}
+		}
 
-		for (int i = 0; i < MAX_BULLET; i++) {
-			if (enemyBullet[i].displayStatus != IS_HIDDEN)
-				continue;
+		if (activeCount > 0) {
+			uint32_t randValue = 0;
+			if (HAL_RNG_GenerateRandomNumber(&hrng, &randValue) != HAL_OK) {
+				randValue = 0;
+			}
 
-			// Tạo mới đạn từ kẻ địch và hiển thị lên màn hình
-			enemyBullet[i].updateCoordinate(enemy[j].coordinateX, enemy[j].coordinateY + 16);
-			enemyBullet[i].updateVelocity(0, bulletSpeed); // Sử dụng tốc độ mới
-			enemyBullet[i].updateDisplayStatus(SHOULD_SHOW);
-			break;
+			int shooterIndex = activeEnemies[randValue % activeCount];
+
+			for (int i = 0; i < MAX_BULLET; i++) {
+				if (enemyBullet[i].displayStatus == IS_HIDDEN) {
+					enemyBullet[i].updateCoordinate(enemy[shooterIndex].coordinateX, enemy[shooterIndex].coordinateY + 16);
+					enemyBullet[i].updateVelocity(0, bulletSpeed);
+					enemyBullet[i].updateDisplayStatus(SHOULD_SHOW);
+					enemyBulletType[i] = shooterIndex % 3;
+					break;
+				}
+			}
+
+			int effectiveRound = (currentRound > 5) ? 5 : currentRound;
+
+            // CHUẨN ĐẾM THEO KHUNG HÌNH (60FPS): Tần suất quái xả đạn lý tưởng
+            int baseRate = 60 - (effectiveRound * 10);
+            if (baseRate < 20) baseRate = 20;
+
+            globalEnemyFireCooldown = baseRate + (randValue % 30);
 		}
 	}
 
-	// Cập nhật vị trí của các đạn từ kẻ địch đã xuất hiện
 	for (int i = 0; i < MAX_BULLET; i++) {
 		if (enemyBullet[i].displayStatus != IS_SHOWN)
 			continue;
 		enemyBullet[i].update(dt);
 	}
-
 }
 
-// Đặt lại trạng thái của các đối tượng trong trò chơi cho vòng chơi tiếp theo
 void resetGameObjectsForNextRound() {
-    // Reset enemy
     for (int i = 0; i < MAX_ENEMY; i++) {
         enemy[i].updateCoordinate(-50, -50);
         enemy[i].updateDisplayStatus(IS_HIDDEN);
     }
-    // Reset bullets
     for (int i = 0; i < MAX_BULLET; i++) {
         shipBullet[i].updateCoordinate(-50, -50);
         shipBullet[i].updateDisplayStatus(IS_HIDDEN);
         enemyBullet[i].updateCoordinate(-50, -50);
         enemyBullet[i].updateDisplayStatus(IS_HIDDEN);
     }
-    // Reset tàu về vị trí ban đầu (giữ nguyên số mạng và điểm)
-    gameInstance.ship.coordinateX = 100;
-    gameInstance.ship.coordinateY = 200;
+    gameInstance.ship.coordinateX = 104;
+    gameInstance.ship.coordinateY = 260;
     gameInstance.ship.updateVelocityX(0);
     gameInstance.ship.updateVelocityY(0);
-    // Đảm bảo các biến trạng thái cho phép tàu di chuyển lại bình thường
-    // Nếu có biến nào khác kiểm soát input/di chuyển, reset tại đây
-    // spawnRate = MAX_SPAWN_RATE;
-    spawnRate = 0; // Cho phép spawn quái ngay lập tức khi vào round mới
+    spawnRate = 0;
     shouldEndGame = false;
     shouldStopTask = false;
-    // isGameTaskTerminated = false;
+    isWaveInitialized = false;
+    enemyMoveDirection = 1;
+    isHeartDropping = false;
+    globalEnemyFireCooldown = 90; // Sửa về mốc frame ngắn chuẩn 60FPS
 }

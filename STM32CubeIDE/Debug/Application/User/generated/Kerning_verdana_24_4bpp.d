@@ -1,5 +1,5 @@
 Application/User/generated/Kerning_verdana_24_4bpp.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/fonts/src/Kerning_verdana_24_4bpp.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/fonts/src/Kerning_verdana_24_4bpp.cpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Unicode.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \

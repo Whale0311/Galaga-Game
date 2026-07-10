@@ -3,8 +3,8 @@
 /*********************************************************************************/
 #include <gui_generated/menuscreen_screen/MenuScreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
+#include <images/BitmapDatabase.hpp>
 
 MenuScreenViewBase::MenuScreenViewBase() :
     buttonCallback(this, &MenuScreenViewBase::buttonCallbackHandler)
@@ -12,6 +12,14 @@ MenuScreenViewBase::MenuScreenViewBase() :
     __background.setPosition(0, 0, 240, 320);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
+
+    menu_highscore.setPosition(0, 143, 240, 34);
+    menu_highscore.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    menu_highscore.setLinespacing(0);
+    Unicode::snprintf(menu_highscoreBuffer, MENU_HIGHSCORE_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_G19X).getText());
+    menu_highscore.setWildcard(menu_highscoreBuffer);
+    menu_highscore.setTypedText(touchgfx::TypedText(T___SINGLEUSE_A5PI));
+    add(menu_highscore);
 
     image1.setXY(20, 27);
     image1.setBitmap(touchgfx::Bitmap(BITMAP_TITLE_ID));

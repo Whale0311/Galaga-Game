@@ -1,5 +1,5 @@
 Middlewares/FreeRTOS/tasks.o: \
- C:/HeNhung/MyApplication/Middlewares/Third_Party/FreeRTOS/Source/tasks.c \
+ D:/Galaga/GALAGA-GAME/Middlewares/Third_Party/FreeRTOS/Source/tasks.c \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../../Core/Inc/FreeRTOSConfig.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \

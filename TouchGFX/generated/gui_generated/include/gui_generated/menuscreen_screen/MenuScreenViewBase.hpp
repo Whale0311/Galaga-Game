@@ -8,6 +8,7 @@
 #include <mvp/View.hpp>
 #include <gui/menuscreen_screen/MenuScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 
@@ -27,8 +28,15 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
+    touchgfx::TextAreaWithOneWildcard menu_highscore;
     touchgfx::Image image1;
     touchgfx::ButtonWithLabel button;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t MENU_HIGHSCORE_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar menu_highscoreBuffer[MENU_HIGHSCORE_SIZE];
 
 private:
 

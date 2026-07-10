@@ -1,5 +1,5 @@
 Application/User/generated/Table_verdana_24_4bpp.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/fonts/src/Table_verdana_24_4bpp.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/fonts/src/Table_verdana_24_4bpp.cpp \
  ../../TouchGFX/generated/fonts/include/fonts/GeneratedFont.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/ConstFont.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp \

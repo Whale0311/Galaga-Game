@@ -1,5 +1,5 @@
 Application/User/generated/GameScreenViewBase.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/gamescreen_screen/GameScreenViewBase.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/gamescreen_screen/GameScreenViewBase.cpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/gamescreen_screen/GameScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
@@ -39,6 +39,7 @@ Application/User/generated/GameScreenViewBase.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  ../../TouchGFX/gui/include/gui/model/Model.hpp \
@@ -97,6 +98,7 @@ Application/User/generated/GameScreenViewBase.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 ../../TouchGFX/gui/include/gui/model/Model.hpp:

@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/STM32TouchController.o: \
- C:/HeNhung/MyApplication/TouchGFX/target/STM32TouchController.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/target/STM32TouchController.cpp \
  ../../TouchGFX/target/STM32TouchController.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \

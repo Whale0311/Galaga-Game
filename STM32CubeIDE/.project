@@ -500,6 +500,31 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_Dark_Buttons_Square_small_pressed.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_bg_round1.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bg_round1.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_bg_round2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bg_round2.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_bg_round3.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bg_round3.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_bg_round4.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bg_round4.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_bg_round5.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bg_round5.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_bullet-double.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bullet-double.cpp</locationURI>
@@ -520,39 +545,24 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-bullet-yellow.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_enemy-green-01.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-green-01.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_enemy-green-02.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-green-02.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_enemy-red-01.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-red-01.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_enemy-red-02.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-red-02.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_enemy-yellow-01.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-yellow-01.cpp</locationURI>
-		</link>
-		<link>
-			<name>Application/User/generated/image_enemy-yellow-02.cpp</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy-yellow-02.cpp</locationURI>
-		</link>
-		<link>
 			<name>Application/User/generated/image_heart.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_heart.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_mrTien.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_mrTien.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_mrTien2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_mrTien2.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_mrTung.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_mrTung.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_ship-left.cpp</name>

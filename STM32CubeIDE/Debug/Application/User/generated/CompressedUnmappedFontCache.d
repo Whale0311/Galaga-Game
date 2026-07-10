@@ -1,5 +1,5 @@
 Application/User/generated/CompressedUnmappedFontCache.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/fonts/src/CompressedUnmappedFontCache.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/fonts/src/CompressedUnmappedFontCache.cpp \
  ../../TouchGFX/generated/fonts/include/fonts/CompressedUnmappedFontCache.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FlashDataReader.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
@@ -20,6 +20,7 @@ Application/User/generated/CompressedUnmappedFontCache.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp \
@@ -52,6 +53,7 @@ Application/User/generated/CompressedUnmappedFontCache.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp:

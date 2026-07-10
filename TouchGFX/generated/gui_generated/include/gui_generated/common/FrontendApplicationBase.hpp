@@ -23,8 +23,6 @@ public:
     // MenuScreen
     void gotoMenuScreenScreenNoTransition();
 
-    void gotoMenuScreenScreenSlideTransitionEast();
-
     // GameScreen
     void gotoGameScreenScreenSlideTransitionEast();
 
@@ -35,8 +33,6 @@ protected:
 
     // MenuScreen
     void gotoMenuScreenScreenNoTransitionImpl();
-
-    void gotoMenuScreenScreenSlideTransitionEastImpl();
 
     // GameScreen
     void gotoGameScreenScreenSlideTransitionEastImpl();

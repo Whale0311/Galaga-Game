@@ -17,4 +17,3 @@ void Game::updateScore(short score) {
 
 void Game::update() {
 }
-

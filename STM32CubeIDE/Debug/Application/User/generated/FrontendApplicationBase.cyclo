@@ -23,12 +23,9 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp:154:18:void touchgfx::SlideTransition<templateDirection>::init() [with touchgfx::Direction templateDirection = touchgfx::EAST]	3
 ../../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp:59:18:virtual void touchgfx::MVPApplication::handlePendingScreenTransition()	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp:87:18:void touchgfx::SlideTransition<templateDirection>::handleTickEvent() [with touchgfx::Direction templateDirection = touchgfx::EAST]	4
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:44:6:void FrontendApplicationBase::gotoMenuScreenScreenNoTransitionImpl()	7
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp:308:17:static touchgfx::LCD& touchgfx::HAL::lcd()	3
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:19:1:FrontendApplicationBase::FrontendApplicationBase(Model&, FrontendHeap&)	1
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:38:6:void FrontendApplicationBase::gotoMenuScreenScreenNoTransition()	1
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:49:6:void FrontendApplicationBase::gotoMenuScreenScreenSlideTransitionEast()	1
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:62:6:void FrontendApplicationBase::gotoGameScreenScreenSlideTransitionEast()	1
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp:47:5:touchgfx::SlideTransition<templateDirection>::SlideTransition(uint8_t) [with touchgfx::Direction templateDirection = touchgfx::EAST]	2
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:68:6:void FrontendApplicationBase::gotoGameScreenScreenSlideTransitionEastImpl()	7
-C:/HeNhung/MyApplication/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:55:6:void FrontendApplicationBase::gotoMenuScreenScreenSlideTransitionEastImpl()	7
+D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:44:6:void FrontendApplicationBase::gotoMenuScreenScreenNoTransitionImpl()	7
+D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:57:6:void FrontendApplicationBase::gotoGameScreenScreenSlideTransitionEastImpl()	8
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp:310:17:static touchgfx::LCD& touchgfx::HAL::lcd()	3
+D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:19:1:FrontendApplicationBase::FrontendApplicationBase(Model&, FrontendHeap&)	1
+D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:38:6:void FrontendApplicationBase::gotoMenuScreenScreenNoTransition()	1
+D:/Galaga/GALAGA-GAME/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp:51:6:void FrontendApplicationBase::gotoGameScreenScreenSlideTransitionEast()	1

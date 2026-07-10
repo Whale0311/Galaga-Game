@@ -1,7 +1,9 @@
-../Application/User/src/app.cpp:203:6:void updateEnemy(uint8_t)	40	static
-../Application/User/src/app.cpp:265:6:void updateShipBullet(uint8_t)	32	static
-../Application/User/src/app.cpp:284:6:void updateEnemyBullet(uint8_t)	32	static
-../Application/User/src/app.cpp:48:6:void gameTask(void*)	56	static
-../Application/User/src/app.cpp:320:6:void resetGameObjectsForNextRound()	16	static
-../Application/User/src/app.cpp:345:1:cpp)	16	static
-../Application/User/src/app.cpp:345:1:cpp)	16	static
+../Application/User/src/app.cpp:49:6:void SaveHighScoreToFlash(uint32_t)	40	static,ignoring_inline_asm
+../Application/User/src/app.cpp:69:6:void LoadHighScoreFromFlash()	0	static
+../Application/User/src/app.cpp:257:6:void updateEnemy(uint8_t)	48	static
+../Application/User/src/app.cpp:309:6:void updateShipBullet(uint8_t)	32	static
+../Application/User/src/app.cpp:325:6:void updateEnemyBullet(uint8_t)	168	static
+../Application/User/src/app.cpp:84:6:void gameTask(void*)	56	static
+../Application/User/src/app.cpp:375:6:void resetGameObjectsForNextRound()	16	static
+../Application/User/src/app.cpp:397:1:cpp)	16	static
+../Application/User/src/app.cpp:397:1:cpp)	16	static

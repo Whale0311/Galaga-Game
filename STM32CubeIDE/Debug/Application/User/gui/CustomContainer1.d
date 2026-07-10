@@ -1,5 +1,5 @@
 Application/User/gui/CustomContainer1.o: \
- C:/HeNhung/MyApplication/TouchGFX/gui/src/containers/CustomContainer1.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/containers/CustomContainer1.cpp \
  ../../TouchGFX/gui/include/gui/containers/CustomContainer1.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/containers/CustomContainer1Base.hpp \
  ../../TouchGFX/gui/include/gui/common/FrontendApplication.hpp \
@@ -40,6 +40,7 @@ Application/User/gui/CustomContainer1.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  ../../TouchGFX/gui/include/gui/model/Model.hpp
@@ -83,6 +84,7 @@ Application/User/gui/CustomContainer1.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 ../../TouchGFX/gui/include/gui/model/Model.hpp:

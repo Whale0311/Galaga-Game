@@ -11,7 +11,7 @@ const uint8_t MAX_BULLET = 10;
 class Bullet: public Entity {
 public:
 	Bullet();
-	const int MOVE_RATE = 400;
+	const int MOVE_RATE = 0;
 	virtual ~Bullet();
 	bool update(uint8_t dt);
 };

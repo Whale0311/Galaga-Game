@@ -12,14 +12,14 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:703:18:virtual void touchgfx::Drawable::setupDrawChain(const touchgfx::Rect&, touchgfx::Drawable**)	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
-C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:102:6:virtual void GameScreenView::tearDownScreen()	2
+D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:104:6:virtual void GameScreenView::tearDownScreen()	2
 ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp:12:13:GameScreenView::~GameScreenView()	4
 ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp:12:13:virtual GameScreenView::~GameScreenView()	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	2
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	3
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	1
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	1
-C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:31:1:GameScreenView::GameScreenView()	8
-C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:147:6:void GameScreenView::bringUIElementsToFront()	1
-C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:169:6:virtual void GameScreenView::handleTickEvent()	35
-C:/HeNhung/MyApplication/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:84:6:virtual void GameScreenView::setupScreen()	1
+D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:31:1:GameScreenView::GameScreenView()	8
+D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:149:6:void GameScreenView::bringUIElementsToFront()	1
+D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:173:6:virtual void GameScreenView::handleTickEvent()	57
+D:/Galaga/GALAGA-GAME/TouchGFX/gui/src/gamescreen_screen/GameScreenView.cpp:84:6:virtual void GameScreenView::setupScreen()	1

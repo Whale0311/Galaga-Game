@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
- C:/HeNhung/MyApplication/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp \
  ../../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
@@ -17,6 +17,7 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp \
@@ -57,26 +58,26 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/gamescreen_screen/GameScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenPresenter.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
- ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\app.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Game.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Ship.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/app.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Game.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Ship.hpp \
  ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Entity.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Bullet.hpp \
- C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Enemy.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Entity.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Bullet.hpp \
+ D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Enemy.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
@@ -159,6 +160,7 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp:
@@ -199,26 +201,26 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:
 ../../TouchGFX/gui/include/gui/model/ModelListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
 ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/gamescreen_screen/GameScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/gamescreen_screen/GameScreenPresenter.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\app.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Game.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Ship.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/app.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Game.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Ship.hpp:
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Entity.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Bullet.hpp:
-C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\Enemy.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Entity.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Bullet.hpp:
+D:/Galaga/GALAGA-GAME/STM32CubeIDE/Application/User/src/Enemy.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:

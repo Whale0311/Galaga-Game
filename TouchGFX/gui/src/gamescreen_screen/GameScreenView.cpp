@@ -1,6 +1,6 @@
 #include <gui/gamescreen_screen/GameScreenView.hpp>
 
-#include <C:\HeNhung\MyApplication\STM32CubeIDE\Application\User\src\app.hpp>
+#include "app.hpp"
 #include <BitmapDatabase.hpp>
 #include <cmsis_os2.h>
 #include <cmsis_os.h>
@@ -29,14 +29,19 @@ extern osMessageQueueId_t Queue4Handle;
 extern osMessageQueueId_t Queue5Handle;
 
 GameScreenView::GameScreenView() {
+	transitionDelayCounter = 0;
+	restartDelayCounter = 0;
 	// Khởi tạo đối tượng Game và các thành phần đồ họa trên màn hình game
 	gameInstance = Game();
 	remove(menu_button);
 	// menu_button.setVisible(false);
 	remove(score_holder);
-	remove(continue_round2);
+	remove(highscore_holder);
 	remove(round_2);
 	remove(image2);
+	fallingHeart.setBitmap(touchgfx::Bitmap(BITMAP_HEART_ID));
+	fallingHeart.setVisible(false);
+	add(fallingHeart);
 	// Prepare ship
 	// Chuẩn bị hình ảnh cho tàu và thiết lập vị trí ban đầu
 	backgroundImage.setBitmap(Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_BACKGROUNDS_240X320_PUZZLE_ID));
@@ -48,42 +53,39 @@ GameScreenView::GameScreenView() {
 	shipImage.setXY(gameInstance.ship.coordinateX,
 			gameInstance.ship.coordinateY);
 	add(shipImage);
-
-	// Chuẩn bị hình ảnh cho đạn của tàu và đạn của kẻ địch, thiết lập vị trí ban đầu và trạng thái ẩn
+	// Chuẩn bị hình ảnh cho đạn
 	for (int i = 0; i < MAX_BULLET; i++) {
 		enemyBulletImage[i].setXY(321, 33);
-		enemyBulletImage[i].setBitmap(
-				touchgfx::Bitmap(BITMAP_ENEMY_BULLET_RED_ID));
+		enemyBulletImage[i].setBitmap(touchgfx::Bitmap(BITMAP_ENEMY_BULLET_RED_ID)); // Cứ set mặc định là Đỏ
 		shipBulletImage[i].setXY(321, 33);
 		shipBulletImage[i].setBitmap(touchgfx::Bitmap(BITMAP_BULLET_DOUBLE_ID));
 	}
 
-	// Chuẩn bị hình ảnh cho các kẻ địch, sử dụng chuyển đổi màu cho từng loại kẻ địch và thiết lập thời gian cập nhật hình ảnh
+	// Chuẩn bị hình ảnh mặt người cho kẻ địch
 	for (int i = 0; i < MAX_ENEMY; i++) {
 		switch (i % 3) {
 		case 0:
-			enemyImage[i].setBitmaps(BITMAP_ENEMY_GREEN_01_ID,
-					BITMAP_ENEMY_GREEN_02_ID);
+			// Truyền cùng 1 ID để ảnh không bị nhấp nháy
+			enemyImage[i].setBitmaps(BITMAP_MRTIEN_ID, BITMAP_MRTIEN_ID);
 			break;
 		case 1:
-			enemyImage[i].setBitmaps(BITMAP_ENEMY_RED_01_ID,
-					BITMAP_ENEMY_RED_02_ID);
+			enemyImage[i].setBitmaps(BITMAP_MRTUNG_ID, BITMAP_MRTUNG_ID);
 			break;
 		case 2:
-			enemyImage[i].setBitmaps(BITMAP_ENEMY_YELLOW_01_ID,
-					BITMAP_ENEMY_YELLOW_02_ID);
+			enemyImage[i].setBitmaps(BITMAP_MRTIEN2_ID, BITMAP_MRTIEN2_ID);
 			break;
 		default:
 			break;
 		}
-		// thiết lập khoảng thời gian giữa 2 lần cập nhật hình ảnh
-		enemyImage[i].setUpdateTicksInterval(20);
+		// Xóa dòng enemyImage[i].setUpdateTicksInterval(20); đi vì không cần animation nữa
 	}
 }
 
 void GameScreenView::setupScreen() {
 	GameScreenViewBase::setupScreen();
 
+		backgroundImage.setVisible(true);
+		bringUIElementsToFront();
 	// Kết thúc task game trước khi bắt đầu màn hình game mới (đảm bảo không có task game nào đang chạy)
 	osThreadTerminate(gameTaskHandle);
 	osMessageQueueReset(Queue5Handle);
@@ -157,7 +159,9 @@ void GameScreenView::bringUIElementsToFront() {
     
     remove(heart_03);
     add(heart_03);
-    
+    // KÉO TRÁI TIM RƠI LÊN LỚP HIỂN THỊ TRÊN CÙNG
+	remove(fallingHeart);
+	add(fallingHeart);
     // Invalidate để vẽ lại
     score_board.invalidate();
     heart_01.invalidate();
@@ -168,9 +172,19 @@ void GameScreenView::bringUIElementsToFront() {
 // Render game objects
 void GameScreenView::handleTickEvent() {
 	GameScreenViewBase::handleTickEvent();
+	extern int heartDropX;
+	extern int heartDropY;
+	extern bool isHeartDropping;
 
+	if (isHeartDropping) {
+		    fallingHeart.setVisible(true);
+		    fallingHeart.moveTo(heartDropX, heartDropY);
+		} else if (fallingHeart.isVisible()) {
+		    fallingHeart.setVisible(false);
+		    fallingHeart.invalidate();
+	}
 	// display end game screen
-	uint8_t stopFlag;
+	uint8_t stopFlag=0;
 	uint32_t count5 = osMessageQueueGetCount(Queue5Handle);
 	// get latest message
 	while (count5 > 0) {
@@ -178,28 +192,65 @@ void GameScreenView::handleTickEvent() {
 		count5 --;
 	}
 	if (stopFlag == 1 && !shouldStopScreen) {
-		add(menu_button);
+			// Thêm tấm nền xanh (image2) và các đối tượng vào màn hình
+			add(image2);
+			add(menu_button);
+			add(score_holder);
+			add(highscore_holder);
 
-		Unicode::snprintf(score_holderBuffer, SCORE_HOLDER_SIZE, "%d",
-				gameInstance.score);
-		add(score_holder);
-		menu_button.invalidate();
-		score_holder.invalidate();
-		invalidate();
-		shouldStopTask = true;
-		shouldStopScreen = true;
-		osThreadTerminate(gameTaskHandle);
-	}
+			// Ép chúng phải hiện hình (đè lên cài đặt Visible cũ nếu có)
+			image2.setVisible(true);
+			menu_button.setVisible(true);
+			score_holder.setVisible(true);
+			highscore_holder.setVisible(true);
+
+			Unicode::snprintf(score_holderBuffer, SCORE_HOLDER_SIZE, "%d", gameInstance.score);
+			Unicode::snprintf(highscore_holderBuffer, HIGHSCORE_HOLDER_SIZE, "%d", highScore);
+
+			// Cập nhật đồ họa
+			image2.invalidate();
+			menu_button.invalidate();
+			score_holder.invalidate();
+			highscore_holder.invalidate();
+			invalidate();
+
+			shouldStopTask = true;
+			shouldStopScreen = true;
+			if (gameTaskHandle != nullptr) {
+						osThreadTerminate(gameTaskHandle);
+						gameTaskHandle = nullptr;
+					}
+		}
 
 	if (stopFlag == 2 && !shouldStopScreen) {
-		add(continue_round2);
-		add(round_2);
-		continue_round2.invalidate();
-		round_2.invalidate();
-		invalidate();
-		shouldStopTask = true;
-		shouldStopScreen = true;
-		osThreadTerminate(gameTaskHandle); 
+			add(round_2);
+
+			// THÊM DÒNG NÀY: Truyền số Round tiếp theo vào chữ ROUND <value>
+			// Vì biến currentRound sẽ tăng sau 3 giây chờ, nên lúc này ta in currentRound + 1
+			Unicode::snprintf(round_2Buffer, ROUND_2_SIZE, "%d", currentRound + 1);
+
+			round_2.invalidate();
+			invalidate();
+
+			shouldStopTask = true;
+			shouldStopScreen = true;
+			if (gameTaskHandle != nullptr) {
+						osThreadTerminate(gameTaskHandle);
+						gameTaskHandle = nullptr; // <--- THÊM DÒNG NÀY VÀO ĐÂY NỮA
+					}
+
+					transitionDelayCounter = 180;
+		}
+	if (stopFlag == 3 && !shouldStopScreen) {
+	    hearts = gameInstance.ship.lives; // Cập nhật biến mạng
+	    // Sáng lại các trái tim tùy theo số mạng
+	    if (hearts >= 1) heart_03.setAlpha(255);
+	    if (hearts >= 2) heart_02.setAlpha(255);
+	    if (hearts == 3) heart_01.setAlpha(255);
+
+	    heart_01.invalidate();
+	    heart_02.invalidate();
+	    heart_03.invalidate();
 	}
 
 	// Get input
@@ -273,28 +324,38 @@ void GameScreenView::handleTickEvent() {
 	}
 
 	// render enemy bullet
-	for (int i = 0; i < MAX_BULLET; i++) {
-		switch (enemyBullet[i].displayStatus) {
-		case IS_HIDDEN:
-			break;
-		case IS_SHOWN:
-			enemyBulletImage[i].moveTo(enemyBullet[i].coordinateX,
-					enemyBullet[i].coordinateY);
-			break;
-		case SHOULD_SHOW:
-			enemyBulletImage[i].moveTo(enemyBullet[i].coordinateX,
-					enemyBullet[i].coordinateY);
-			add(enemyBulletImage[i]);
-			enemyBullet[i].updateDisplayStatus(IS_SHOWN);
-			break;
-		case SHOULD_HIDE:
-			remove(enemyBulletImage[i]);
-			enemyBullet[i].updateDisplayStatus(IS_HIDDEN);
-			break;
-		default:
-			break;
+		for (int i = 0; i < MAX_BULLET; i++) {
+			switch (enemyBullet[i].displayStatus) {
+			case IS_HIDDEN:
+				break;
+			case IS_SHOWN:
+				enemyBulletImage[i].moveTo(enemyBullet[i].coordinateX,
+						enemyBullet[i].coordinateY);
+				break;
+			case SHOULD_SHOW:
+				enemyBulletImage[i].moveTo(enemyBullet[i].coordinateX,
+						enemyBullet[i].coordinateY);
+
+				// THÊM ĐOẠN NÀY: Đổi ảnh đạn tương ứng với chủ nhân của nó
+				if (enemyBulletType[i] == 0) {
+					enemyBulletImage[i].setBitmap(touchgfx::Bitmap(BITMAP_ENEMY_BULLET_GREEN_ID)); // Đạn của mrTien
+				} else if (enemyBulletType[i] == 1) {
+					enemyBulletImage[i].setBitmap(touchgfx::Bitmap(BITMAP_ENEMY_BULLET_RED_ID));   // Đạn của mrTung
+				} else {
+					enemyBulletImage[i].setBitmap(touchgfx::Bitmap(BITMAP_ENEMY_BULLET_YELLOW_ID)); // Đạn của mrTien2
+				}
+
+				add(enemyBulletImage[i]);
+				enemyBullet[i].updateDisplayStatus(IS_SHOWN);
+				break;
+			case SHOULD_HIDE:
+				remove(enemyBulletImage[i]);
+				enemyBullet[i].updateDisplayStatus(IS_HIDDEN);
+				break;
+			default:
+				break;
+			}
 		}
-	}
 
 	// render enemy
 	for (int i = 0; i < MAX_ENEMY; i++) {
@@ -304,12 +365,12 @@ void GameScreenView::handleTickEvent() {
 			break;
 		case SHOULD_SHOW:
 			enemyImage[i].moveTo(enemy[i].coordinateX, enemy[i].coordinateY);
-			enemyImage[i].startAnimation(false, true, true);
+			//enemyImage[i].startAnimation(false, true, true);
 			add(enemyImage[i]);
 			enemy[i].updateDisplayStatus(IS_SHOWN);
 			break;
 		case SHOULD_HIDE:
-			enemyImage[i].stopAnimation();
+			//enemyImage[i].stopAnimation();
 			remove(enemyImage[i]);
 			enemy[i].updateDisplayStatus(IS_HIDDEN);
 			break;
@@ -343,68 +404,149 @@ void GameScreenView::handleTickEvent() {
 	invalidate();
 	
 
-	if (continue_round2.getPressedState()) {
-		// Sang round 2
-		// Đảm bảo dừng task cũ hoàn toàn
-		if (gameTaskHandle != nullptr) {
-			osThreadTerminate(gameTaskHandle);
-			gameTaskHandle = nullptr;
+	// ==========================================================
+		// 1. KHỐI TỰ CHUYỂN MÀN (Khi bắn hết quái, stopFlag == 2)
+		// (Đây chính là đoạn code bạn vừa gửi)
+		// ==========================================================
+		if (transitionDelayCounter > 0) {
+			transitionDelayCounter--;
+			if (transitionDelayCounter == 0) {
+				// Đảm bảo dừng task cũ hoàn toàn
+				if (gameTaskHandle != nullptr) {
+					osThreadTerminate(gameTaskHandle);
+					gameTaskHandle = nullptr;
+				}
+				currentRound++; // Tăng màn lên
+				// Khi chuẩn bị vào màn mới (currentRound đã tăng)
+				switch (currentRound) {
+				    case 1:
+				        backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND1_ID));
+				        break;
+				    case 2:
+				        backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND2_ID));
+				        break;
+				    case 3:
+						backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND3_ID));
+						break;
+					case 4:
+						backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND4_ID));
+						break;
+				    default:
+				        backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND5_ID));
+				        break;
+				}
+				invalidate();
+				backgroundImage.invalidate();
+				isRoundTransition = false;
+				shouldEndGame = false;
+				shouldStopTask = false;
+				shouldStopScreen = false;
+
+				backgroundImage.setVisible(true);
+				backgroundImage.invalidate();
+				osDelay(100);
+
+				// Reset trạng thái game cho round mới (KHÔNG reset điểm và mạng)
+				bringUIElementsToFront();
+				resetGameObjectsForNextRound();
+
+				for (int i = 0; i < MAX_ENEMY; i++) {
+					remove(enemyImage[i]);
+				}
+				for (int i = 0; i < MAX_BULLET; i++) {
+					remove(shipBulletImage[i]);
+					remove(enemyBulletImage[i]);
+				}
+
+				// Ẩn UI chuyển màn
+				remove(round_2);
+				round_2.invalidate();
+				invalidate();
+
+				// Vẽ lại tim và điểm
+				heart_01.invalidate();
+				heart_02.invalidate();
+				heart_03.invalidate();
+				score_board.invalidate();
+
+				stopFlag = 0;
+				spawnRate = 0;
+
+				// Tạo lại task
+				const osThreadAttr_t gameTask_attributes = {
+					.name = "gameTask",
+					.stack_size = 8192 * 2,
+					.priority = (osPriority_t) osPriorityNormal
+				};
+				gameTaskHandle = osThreadNew(gameTask, NULL, &gameTask_attributes);
+			}
 		}
-		currentRound = 2;
-		isRoundTransition = false;
-		shouldEndGame = false;
-		shouldStopTask = false;
-		shouldStopScreen = false;
 
-		
-		backgroundImage.setVisible(true);
-		backgroundImage.invalidate();
-		osDelay(100); 
+		if (shouldStopScreen && menu_button.isVisible()) {
+								if (menu_button.getPressedState()) {
+									// 1. Dọn dẹp luồng và hàng đợi tín hiệu cũ
+									if (gameTaskHandle != nullptr) {
+										osThreadTerminate(gameTaskHandle);
+										gameTaskHandle = nullptr;
+									}
+									osMessageQueueReset(Queue5Handle);
+									osMessageQueueReset(Queue1Handle);
 
-		// Reset trạng thái game cho round mới (không reset điểm và mạng)
-		bringUIElementsToFront();
-		resetGameObjectsForNextRound();
-		
-		for (int i = 0; i < MAX_ENEMY; i++) {
-			remove(enemyImage[i]);
-		}
-		for (int i = 0; i < MAX_BULLET; i++) {
-			remove(shipBulletImage[i]);
-			remove(enemyBulletImage[i]);
-		}
+									// 2. Reset các chỉ số logic về trạng thái ban đầu
+									currentRound = 1;
+									shouldEndGame = false;
+									shouldStopTask = false;
+									shouldStopScreen = false;
 
-		// Ẩn nút và label round 2
-		remove(continue_round2);
-		remove(round_2);
-		continue_round2.invalidate();
-		round_2.invalidate();
-		invalidate();
+									gameInstance.reset();
+									gameInstance.score = 0;
+									gameInstance.ship.lives = 3;
+									hearts = 3;
 
-			// Đảm bảo các thành phần UI quan trọng được vẽ lại
-		heart_01.invalidate();
-		heart_02.invalidate();
-		heart_03.invalidate();
-		score_board.invalidate();
-		// hearts = gameInstance.ship.lives; // Đảm bảo trái tim hiển thị đúng
+									// SỬA LỖI KẸT NỀN: Ép hình nền quay về phông nền của Round 1 ngay lập tức
+									backgroundImage.setBitmap(touchgfx::Bitmap(BITMAP_BG_ROUND1_ID));
+									backgroundImage.invalidate();
 
-		stopFlag = 0;
-		spawnRate = 0;
+									// 3. Giải phóng UI xóa sạch ảnh cũ kẹt trên màn hình
+									for (int i = 0; i < MAX_ENEMY; i++) {
+										remove(enemyImage[i]);
+										enemyImage[i].invalidate();
+									}
+									for (int i = 0; i < MAX_BULLET; i++) {
+										remove(shipBulletImage[i]);
+										remove(enemyBulletImage[i]);
+										shipBulletImage[i].invalidate();
+										enemyBulletImage[i].invalidate();
+									}
 
-		// osDelay(100);
-		// 		// Chờ task cũ kết thúc hoàn toàn
-		// while (!isGameTaskTerminated) {
-		// 	osDelay(10);  // nhường CPU
-		// }
-		// isGameTaskTerminated = false;  // Reset lại cờ
+									// 4. Ẩn và giải phóng bảng thông báo Game Over
+									image2.setVisible(false);
+									menu_button.setVisible(false);
+									score_holder.setVisible(false);
+									highscore_holder.setVisible(false);
 
-		// Tạo lại task
-		const osThreadAttr_t gameTask_attributes = {
-			.name = "gameTask",
-			.stack_size = 8192 * 2,
-			.priority = (osPriority_t) osPriorityNormal
-		};
-		gameTaskHandle = osThreadNew(gameTask, NULL, &gameTask_attributes);
+									remove(image2);
+									remove(menu_button);
+									remove(score_holder);
+									remove(highscore_holder);
 
+									// Làm sáng rực lại 3 trái tim mạng
+									heart_01.setAlpha(255);
+									heart_02.setAlpha(255);
+									heart_03.setAlpha(255);
+
+									// Làm mới lại toàn bộ trạng thái vật lý backend
+									resetGameObjectsForNextRound();
+									bringUIElementsToFront();
+									invalidate();
+
+									// 5. Tạo ngay luồng game mới
+									const osThreadAttr_t gameTask_attributes = {
+										.name = "gameTask",
+										.stack_size = 8192 * 2,
+										.priority = (osPriority_t) osPriorityNormal
+									};
+									gameTaskHandle = osThreadNew(gameTask, NULL, &gameTask_attributes);
+								}
+							}
 	}
-
-}

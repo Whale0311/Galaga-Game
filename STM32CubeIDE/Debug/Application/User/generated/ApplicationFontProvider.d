@@ -1,5 +1,5 @@
 Application/User/generated/ApplicationFontProvider.o: \
- C:/HeNhung/MyApplication/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp \
+ D:/Galaga/GALAGA-GAME/TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp \
  ../../TouchGFX/generated/fonts/include/fonts/ApplicationFontProvider.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/FontManager.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp \
