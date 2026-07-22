@@ -15,7 +15,9 @@ __Sản phẩm:__
 
 - Ảnh chụp minh họa:\
   ![Ảnh minh họa](images/galaga1.jpg)
+## KẾT QUẢ
 
+[Video Demo Gameplay](https://drive.google.com/file/d/1hAW2FNl-EJhviSv6gcCtoFQ6vYRCmpje/view?usp=sharing)
 ## TÁC GIẢ
 
 - Tên nhóm: VIT
@@ -203,6 +205,3 @@ if (isHeartDropping) {
     }
 }
 ```
-## KẾT QUẢ
-
-[Video Demo Gameplay](https://drive.google.com/file/d/1hAW2FNl-EJhviSv6gcCtoFQ6vYRCmpje/view?usp=sharing)
