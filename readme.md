@@ -26,7 +26,7 @@ __Sản phẩm:__
   | 1 | Vũ Đức Anh | 20225257 | Thiết kế Core Game Logic, quản lý vòng lặp RTOS và thuật toán va chạm vật lý. |
   | 2 | Vũ Thùy Dương | 20235315 | Thiết kế giao diện UI/UX trên TouchGFX, xử lý đồ họa và quản lý chuyển màn. |
   | 3 | Đoàn Thanh Hải | 20235320 | Xây dựng cấu trúc Hướng đối tượng (Entity, Enemy, Ship, Bullet) và cơ chế bắn đạn ngẫu nhiên. |
-  | 4 | Trịnh Thiên Lam | 20235359 | Xử lý tín hiệu Input từ Joystick qua Message Queue, logic Vật phẩm rơi và trạng thái Game Over. |
+  | 4 | Trịnh Thiên Lam | 20235359 | Xử lý tín hiệu Input từ Joystick qua Message Queue, logic Vật phẩm rơi. |
   | 5 | Đoàn Diệu Linh | 20225141 | Quản lý bộ nhớ Flash (High Score) và cấu hình Output GPIO cho module rung (Vibration) & LED cảnh báo. |
 
 ## MÔI TRƯỜNG HOẠT ĐỘNG
